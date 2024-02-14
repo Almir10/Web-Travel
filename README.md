@@ -18,8 +18,8 @@ Ova web aplikacija omogućava korisnicima upravljanje informacijama o putovanjim
 - Express.js: Web aplikacijski okvir za Node.js korišten za izgradnju API-ja i web aplikacija.
 - Bootstrap: Okvir za front-end za izgradnju odzivnih i mobilno-oriijentiranih web stranica.
 - EJS (Embedded JavaScript): Templating engine za generiranje HTML oznaka s JavaScriptom.
-- MySql: MySQL baza podataka korištena za pohranu informacija o putovanjima, korisničkim računima i komentarima.
--   Sadrži tabele Putovanja, Rezervacija, Korisnici i Komentari
+- MySql: MySQL baza podataka korištena za pohranu informacija o putovanjima, korisničkim računima i komentarima ; Sadrži tabele Putovanja, Rezervacija, Korisnici i Komentari(.
+  
 
 
 ## Korištenje
