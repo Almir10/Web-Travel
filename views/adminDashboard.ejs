@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <style>
+        body {
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 80px;
+            margin-bottom: 20px;
+            margin-left: 40%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            margin: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        th:first-child, td:first-child {
+            border-left: none;
+        }
+        th:last-child, td:last-child {
+            border-right: none;
+        }
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px; /* Add some right margin to separate buttons */
+        }
+        button.edit {
+            background-color: #007bff;
+            color: #fff;
+        }
+        button.delete {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        button.view {
+            background-color: #ffc107;
+            color: #000;
+        }
+        button.activate {
+            background-color: #28a745;
+            color: #fff;
+        }
+        button.deactivate {
+            background-color: #ffc107;
+            color: #000;
+        }
+
+        .travels{
+            margin-left:20%;
+        }
+
+        form {
+            display: inline-block;
+            margin-right: 5px;
+        }
+        form:last-child {
+            margin-right: 0;
+        }
+        form button {
+            margin: 0;
+        }
+        .add-travel-form {
+            max-width: 400px;
+            margin-left: 40%;
+            margin-top: 5px;
+        }
+        .add-travel-form input,
+        .add-travel-form select {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .navbar {
+            background-color: #2196F3 !important;
+        }
+
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Dashboard</a>
+        <a class="btn btn-primary" href="/">Back</a>
+    </div>
+</nav>
+
+
+<h2>List of Users</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% users.forEach(user => { %>
+        <tr>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.aktivan === 1 ? 'Active' : 'Inactive' %></td>
+            <td style="display: flex; align-items: center;">
+
+                <form action="/admin/edit-user/<%= user.idkorisnici %>" method="get">
+                    <button type="submit" class="edit">Edit</button>
+                </form>
+                <form action="/admin/deactivate-user/<%= user.idkorisnici %>" method="post">
+                    <button type="submit" class="<%= user.aktivan === 1 ? 'deactivate' : 'activate' %>">
+                        <%= user.aktivan === 1 ? 'Deactivate' : 'Activate' %>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+<h2>List of Travels</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% travels.forEach(travel => { %>
+        <tr>
+            <td><%= travel.naziv %></td>
+            <td><%= travel.lokacija %></td>
+            <td><%= new Date(travel.pocetak).toLocaleDateString() %></td>
+            <td><%= new Date(travel.kraj).toLocaleDateString() %></td>
+            <td style="display: flex; align-items: center;">
+                <!-- Buttons -->
+                <form action="/admin/edit-travel/<%= travel.idputovanja %>" method="get">
+                    <button type="submit" class="edit">Edit</button>
+                </form>
+                <form action="/admin/delete-travel/<%= travel.idputovanja %>" method="post">
+                    <button type="submit" class="delete">Delete</button>
+                </form>
+                <form action="/admin/view-comments/<%= travel.idputovanja %>" method="get">
+                    <button type="submit" class="view">View Comments</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+
+<h2>Add New Travel</h2>
+<form class="add-travel-form" action="/admin/add-travel" method="post">
+    <label for="naziv">Naziv:</label>
+    <input type="text" id="naziv" name="naziv" required>
+
+    <label for="lokacija">Lokacija:</label>
+    <input type="text" id="lokacija" name="lokacija" required>
+
+    <label for="pocetak">Pocetak:</label>
+    <input type="date" id="pocetak" name="pocetak" required>
+
+    <label for="kraj">Kraj:</label>
+    <input type="date" id="kraj" name="kraj" required>
+
+    <label for="cijena">Cijena:</label>
+    <input type="number" id="cijena" name="cijena" required>
+
+    <label for="slika">Slika:</label>
+    <input type="text" id="slika" name="slika" required>
+
+    <label for="kategorija">Kategorija:</label>
+    <select id="kategorija" name="kategorija" required>
+        <option value="Europa">Europa</option>
+        <option value="Daleka">Daleka</option>
+        <option value="Ljetovanja">Ljetovanja</option>
+        <option value="Planinarenje">Planinarenje</option>
+        <option value="Zimska">Zimska</option>
+    </select>
+
+    <input type="submit" value="Add Travel">
+</form>
+
+</body>
+</html>

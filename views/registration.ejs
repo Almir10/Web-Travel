@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://img.freepik.com/free-vector/realistic-travel-background-with-elements_52683-77784.jpg');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(5px); /* Apply a blur effect to the background */
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Make the card background slightly transparent */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+
+                    <h3 class="mb-5">User Registration</h3>
+
+                    <form action="/register" method="post" onsubmit="return validatePassword()">
+
+                        <div class="form-group mb-3">
+                            <input type="text" id="username" name="username" class="form-control" required placeholder="Enter username" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="email" id="email" name="email" class="form-control" required placeholder="Enter email" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="password" id="password" name="password" class="form-control" required placeholder="Enter password" />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required placeholder="Confirm password" />
+                        </div>
+
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Register">
+
+                    </form>
+
+                    <a href="/" class="btn btn-secondary mt-3">Back</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validatePassword() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password != confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

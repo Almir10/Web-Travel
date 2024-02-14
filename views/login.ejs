@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .login-section {
+        position: relative;
+        height: 100vh;
+    }
+    .login-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('https://img.freepik.com/free-vector/realistic-travel-background-with-elements_52683-77784.jpg');
+        background-size: cover;
+        background-position: center;
+        filter: blur(8px);
+        z-index: -1;
+    }
+    .card {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 1rem;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<body>
+<section class="login-section d-flex justify-content-center align-items-center">
+    <div class="login-background"></div>
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow">
+                    <div class="card-body p-5 text-center">
+
+                        <h3 class="mb-5">User Login</h3>
+
+                        <form action="/login" method="post">
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="username" name="username" class="form-control form-control-lg" required placeholder="Enter username" />
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="password" id="password" name="password" class="form-control form-control-lg" required placeholder="Enter password" />
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-start mb-4">
+                                <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+                                <label class="form-check-label" for="form1Example3"> Remember password </label>
+                            </div>
+
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+
+                        </form>
+                        <a href="/" class="btn btn-secondary mt-3">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+

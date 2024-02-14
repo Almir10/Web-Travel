@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Details</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+        }
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(10px);
+        }
+        .content,
+        .comments {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: calc(50% - 40px);
+            margin: 20px;
+            text-align: center;
+        }
+        .content h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .content p {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .comments h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .comments ul {
+            list-style: none;
+            padding: 0;
+        }
+        .comments li {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .comment-date {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.5);
+            margin-bottom: 5px;
+        }
+        .comment-form {
+            margin-top: 20px;
+        }
+        .comment-form textarea {
+            width: calc(100% - 40px);
+            margin-bottom: 10px;
+        }
+        .comment-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .comment-form button:hover {
+            background-color: #0056b3;
+        }
+        .book-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .book-button:hover {
+            background-color: #218838;
+        }
+        .back-button {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+        }
+        .back-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<img class="background-image" src="https://img.freepik.com/free-vector/realistic-travel-background-with-elements_52683-77784.jpg" alt="Background Image">
+
+<!-- Back Button -->
+<button class="back-button" onclick="window.location.href = '/';">Back</button>
+
+<!-- Travel Details Section -->
+<div class="container">
+    <div class="content">
+        <h1><%= travel.naziv %></h1>
+
+        <img src="<%= travel.slika %>" alt="Travel Image" style="max-width: 100%; height: auto;">
+        <p><strong>Location:</strong> <%= travel.lokacija %></p>
+        <p><strong>Category:</strong> <%= travel.kategorija %></p>
+        <p><strong>Price:</strong> <%= travel.cijena %> €</p> <!-- Added "euros" -->
+        <p><strong>Date:</strong> <%= new Date(travel.pocetak).toLocaleDateString() %> - <%= new Date(travel.kraj).toLocaleDateString() %></p>
+
+        <% if (session && session.user && session.user.username) { %>
+            <form action="/book-travel" method="post">
+                <input type="hidden" name="idputovanja" value="<%= travel.idputovanja %>">
+                <button type="submit" class="book-button">Book Now</button>
+            </form>
+        <% } %>
+
+    </div>
+
+    <div class="comments">
+        <h2>Comments</h2>
+        <ul>
+            <% comments.forEach(function(comment) { %>
+                <li>
+                    <span class="comment-date"><%= new Date(comment.vrijemeObjave).toLocaleDateString() %></span><br> <!-- Display comment date above comment content -->
+                    <strong><%= comment.username %>:</strong> <%= comment.sadrzaj %>
+                </li>
+            <% }); %>
+        </ul>
+
+        <% if (session && session.user && session.user.username) { %>
+            <div class="comment-form">
+                <h2>Add Comment</h2>
+                <form action="/add-comment/<%= travel.idputovanja %>" method="post">
+                    <textarea name="comment" placeholder="Add a comment"></textarea><br>
+                    <button type="submit">Add Comment</button>
+                </form>
+            </div>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>

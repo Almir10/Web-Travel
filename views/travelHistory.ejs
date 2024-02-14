@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://img.freepik.com/free-vector/realistic-travel-background-with-elements_52683-77784.jpg');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(5px);
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            color: #333;
+        }
+        h1 {
+            margin-top: 40px;
+            font-size: 2rem;
+        }
+        table {
+            width: 80%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tbody tr {
+            background-color: #fff;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button:hover {
+            background-color: #0d8aed;
+        }
+    </style>
+</head>
+<body>
+<a href="#" onclick="history.back()" class="back-button">Back</a>
+<h1>Travel History</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Naziv</th>
+        <th>Lokacija</th>
+        <th>Početak</th>
+        <th>Kraj</th>
+        <th>Cijena</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <% travelHistory.forEach(travel => { %>
+        <tr>
+            <td><%= travel.naziv %></td>
+            <td><%= travel.lokacija %></td>
+            <td><%= travel.pocetak.toLocaleDateString() %></td>
+            <td><%= travel.kraj.toLocaleDateString() %></td>
+            <td><%= travel.cijena %> €</td>
+
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+</body>
+</html>

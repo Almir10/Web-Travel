@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Travel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+<a href="/admin" class="back-button">Back</a>
+<h1>Edit Travel</h1>
+<form action="/admin/edit-travel/<%= travel.idputovanja %>" method="post">
+    <label for="naziv">Naziv:</label>
+    <input type="text" id="naziv" name="naziv" value="<%= travel.naziv %>" required>
+
+    <label for="lokacija">Lokacija:</label>
+    <input type="text" id="lokacija" name="lokacija" value="<%= travel.lokacija %>" required>
+
+    <label for="pocetak">Pocetak:</label>
+    <input type="date" id="pocetak" name="pocetak" value="<%= travel.pocetak.toISOString().split('T')[0] %>" required>
+
+    <label for="kraj">Kraj:</label>
+    <input type="date" id="kraj" name="kraj" value="<%= travel.kraj.toISOString().split('T')[0] %>" required>
+
+    <label for="cijena">Cijena:</label>
+    <input type="number" id="cijena" name="cijena" value="<%= travel.cijena %>" required>
+
+    <label for="kategorija">Kategorija:</label>
+    <select id="kategorija" name="kategorija" required>
+        <option value="Europa" <%= travel.kategorija === 'Europa' ? 'selected' : '' %>>Europa</option>
+        <option value="Daleka" <%= travel.kategorija === 'Daleka' ? 'selected' : '' %>>Daleka</option>
+        <option value="Ljetovanja" <%= travel.kategorija === 'Ljetovanja' ? 'selected' : '' %>>Ljetovanja</option>
+        <option value="Planinski" <%= travel.kategorija === 'Planinski' ? 'selected' : '' %>>Planinski</option>
+        <option value="Zimski" <%= travel.kategorija === 'Zimski' ? 'selected' : '' %>>Zimski</option>
+    </select>
+
+    <label for="slika">Slika:</label>
+    <input type="text" id="slika" name="slika" value="<%= travel.slika %>" required>
+
+    <input type="submit" value="Update Travel">
+</form>
+</body>
+</html>
